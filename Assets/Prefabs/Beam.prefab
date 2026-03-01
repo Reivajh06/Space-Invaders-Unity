@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3414892272892232112}
   - component: {fileID: 8265499683456258143}
   - component: {fileID: 7348361699241039686}
-  - component: {fileID: 7573270384203517278}
+  - component: {fileID: 1501872844316640811}
   m_Layer: 0
   m_Name: Beam
   m_TagString: Untagged
@@ -152,8 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c835d3e79b61d3b448cc08aad4c3c659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Beam
+  gameObjectCreator: 
   speed: 5
---- !u!50 &7573270384203517278
+--- !u!50 &1501872844316640811
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0

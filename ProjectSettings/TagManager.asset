@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Beam
+  - Alien
   layers:
   - Default
   - TransparentFX

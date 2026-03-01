@@ -1,4 +1,6 @@
+using System.Numerics;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour {
     
@@ -17,7 +19,8 @@ public class Player : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Return)) {
             if (fireBeamTimer <= 0) {
                 fireBeamTimer = FIRECOOLDOWN;
-                Instantiate(beamPrefab, transform.position + transform.up * 1.2f, transform.rotation);
+                Beam b = Instantiate(beamPrefab, transform.position + transform.up * 1.2f + transform.right / 2 + new Vector3(-0.25f, 0, 0), transform.rotation).GetComponent<Beam>();
+                b.shooterName = nameof(Player);
             }
         }
 
