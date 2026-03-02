@@ -1,24 +1,41 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienSpawner : MonoBehaviour {
+
+    public GameObject borders;
     
     public int alienRows = 5;
     public int aliensInRow;
+    public List<Alien> aliens;
+
+    public float moveCooldown = 5f;
+    public int direction = 1;
     public float startX = -15f;
-    public float startY = 2.5f;
+    public float startY = 4f;
+    private float paddingX = 0.2f;
+    private float paddingY = 0.4f;
+
     public int remainingAliens;
     public Color[] rowColors;
 
-    private float paddingX = 0.1f;
-    private float paddingY = 0.1f;
-    
+
     public GameObject[] alienPrefabs;
     
     void Start() {
         InstantiateAlienRows();
 
         remainingAliens = alienRows * aliensInRow;
+    }
+
+    void Update() {
+        if (moveCooldown <= 0) {
+            MoveAliens();
+            moveCooldown = 5f;
+        }
+
+        moveCooldown -= 1 * Time.deltaTime;
     }
 
     private void InstantiateAlienRows() {
@@ -41,6 +58,8 @@ public class AlienSpawner : MonoBehaviour {
                 alien.Column = j;
 
                 if (rowColors.Length != 0) alien.GetComponent<SpriteRenderer>().color = rowColors[i % rowColors.Length];
+
+                aliens.Add(alien);
             }
         }
     }
@@ -53,5 +72,13 @@ public class AlienSpawner : MonoBehaviour {
         }
         
         return null;
+    }
+
+    public void MoveAliens(bool horizontally=true) {
+        foreach(Alien a in aliens) {
+            if(horizontally) a.transform.Translate(new Vector3(alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.x * direction, 0));
+            
+            else a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
+        }
     }
 }
