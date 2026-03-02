@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -5,10 +6,15 @@ public class Player : MonoBehaviour {
     
     public const float FIRECOOLDOWN = 1f;
 
+    private Animator animator;
     public GameObject beamPrefab;
     public float speed = 5f;
 
     private float fireBeamTimer;
+
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
 
     void Update() {
         float input = Input.GetAxis("Horizontal");
@@ -24,5 +30,9 @@ public class Player : MonoBehaviour {
         }
 
         if(fireBeamTimer > 0) fireBeamTimer -= 1 * Time.deltaTime;
+    }
+
+    public void OnHit() {
+        animator.Play("player_hit");
     }
 }

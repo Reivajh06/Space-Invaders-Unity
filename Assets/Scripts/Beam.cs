@@ -19,7 +19,11 @@ public class Beam : MonoBehaviour {
                 Alien a = other.GetComponent<Alien>();
                 a.OnHit();
                 a.GetComponentInParent<AlienSpawner>().aliens.Remove(a);
-            }
+                
+            } if (other.name.Equals("Player")) {
+                Player p = other.GetComponent<Player>();
+                p.OnHit();
+            } 
         }
         
         Destroy(gameObject);

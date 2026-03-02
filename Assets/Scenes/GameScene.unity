@@ -274,9 +274,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
+  field of view: 43
   orthographic: 1
-  orthographic size: 14
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -302,7 +302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -565,19 +565,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalScale.x
-      value: 56.457035
+      value: 54.425983
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalScale.y
-      value: 25.26547
+      value: 27.761074
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.765
+      value: -0.8748
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1204
+      value: 1.2278
       objectReference: {fileID: 0}
     - target: {fileID: 6368810325775457458, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_Name
@@ -616,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2267457890068014356, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.03
+      value: -10.4
       objectReference: {fileID: 0}
     - target: {fileID: 2267457890068014356, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
       propertyPath: m_LocalPosition.z
