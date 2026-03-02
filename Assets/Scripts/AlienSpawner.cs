@@ -11,7 +11,7 @@ public class AlienSpawner : MonoBehaviour {
     public float moveCooldown = 5f;
     public int direction = 1;
     public float startX = -15f;
-    public float startY = 4f;
+    public float startY = 3f;
     private float paddingX = 0.2f;
     private float paddingY = 0.4f;
 
@@ -80,8 +80,10 @@ public class AlienSpawner : MonoBehaviour {
                 Alien.enableBordersCollision = true;
 
             } else {
-                a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
+
                 direction *= -1;
+                MoveAliens(); //Undo the last movement if any alien collides with bounds (this parte is only called vertically when some alien collides with bounds)
+                a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
                 Alien.enableBordersCollision = false;
             }
         }
