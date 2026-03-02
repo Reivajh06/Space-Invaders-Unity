@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 
 public class Alien : MonoBehaviour {
 
+    public static bool enableBordersCollision = true;
+
     public GameObject beamPrefab;
     private Animator animator;
     private int beamSpeed;
@@ -23,6 +25,12 @@ public class Alien : MonoBehaviour {
 
     public void OnHit() {
         animator.Play("alien_hit");
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.name.Equals("Bounds")) {
+            if (enableBordersCollision) GetComponentInParent<AlienSpawner>().MoveAliens(false);
+        }
     }
 }
 

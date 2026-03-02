@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienSpawner : MonoBehaviour {
-
-    public GameObject borders;
     
     public int alienRows = 5;
     public int aliensInRow;
@@ -30,7 +28,8 @@ public class AlienSpawner : MonoBehaviour {
     }
 
     void Update() {
-        if (moveCooldown <= 0) {
+        if (moveCooldown <= 0)
+        {
             MoveAliens();
             moveCooldown = 5f;
         }
@@ -76,9 +75,15 @@ public class AlienSpawner : MonoBehaviour {
 
     public void MoveAliens(bool horizontally=true) {
         foreach(Alien a in aliens) {
-            if(horizontally) a.transform.Translate(new Vector3(alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.x * direction, 0));
-            
-            else a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
+            if (horizontally) {
+                a.transform.Translate(new Vector3(alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.x * direction, 0));
+                Alien.enableBordersCollision = true;
+
+            } else {
+                a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
+                direction *= -1;
+                Alien.enableBordersCollision = false;
+            }
         }
     }
 }

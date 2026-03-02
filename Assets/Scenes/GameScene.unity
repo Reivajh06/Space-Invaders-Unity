@@ -336,7 +336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd26097ed1468442964b24719080195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlienSpawner
-  borders: {fileID: 0}
   alienRows: 5
   aliensInRow: 21
   aliens: []
@@ -566,19 +565,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalScale.x
-      value: 46.284283
+      value: 43.130337
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalScale.y
-      value: 15.749151
+      value: 15.87818
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1324
+      value: -1.1108
       objectReference: {fileID: 0}
     - target: {fileID: 1996395259399235552, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2305
+      value: 1.1657
       objectReference: {fileID: 0}
     - target: {fileID: 6368810325775457458, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       propertyPath: m_Name
