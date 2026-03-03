@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,19 +29,17 @@ public class AlienShooterSelector : MonoBehaviour {
     private void SelectShooters() {
         int lowerRow = alienSpawner.alienRows - 1;
         int shooterAliensLength = Random.Range(1, maxShooters + 1 > alienSpawner.remainingAliens ? alienSpawner.remainingAliens : maxShooters + 1);
-        
-        while(shooterAliens.Count < shooterAliensLength) {
-            Alien alien = alienSpawner.GetAlien(
-                lowerRow,
-                Random.Range(
-                    0,
-                    alienSpawner.aliensInRow
-                ));
+
+        for (int column = 0; column < shooterAliensLength; column++) {
+            for(int row = alienSpawner.alienRows - 1; row >= 0; row--) {
+                if (shooterAliens.Count + 1 >= shooterAliensLength) return;
+                
+                Alien a = alienSpawner.GetAlien(row, column);
+
+                if (!a || !IsValid(a)) continue;
             
-            if (!alien) continue;
-            
-            if(shooterAliens.Contains(alien)) continue;
-            shooterAliens.Add(alien);
+                shooterAliens.Add(a);
+            }   
         }
     }
 
@@ -54,5 +54,13 @@ public class AlienShooterSelector : MonoBehaviour {
         }
 
         shooterAliens.Clear();
+    }
+
+    private bool IsValid(Alien a) {
+        for (int i = a.Row - 1; i >= 0; i--) {
+            if (alienSpawner.GetAlien(i, a.Column)) return false;
+        }
+
+        return true;
     }
 }

@@ -3,7 +3,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour {
     
-    public const float FIRECOOLDOWN = 1f;
+    public const float FIRECOOLDOWN = 0.8f;
 
     private Animator animator;
     public AudioManager audioManager;

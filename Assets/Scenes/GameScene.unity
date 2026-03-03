@@ -289,7 +289,7 @@ Camera:
   far clip plane: 1000
   field of view: 23.8
   orthographic: 1
-  orthographic size: 13.5
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -724,6 +724,10 @@ PrefabInstance:
     - target: {fileID: 2267457890068014356, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439615645623838214, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
+      propertyPath: m_Constraints
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2526794372467450444, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
       propertyPath: m_Name

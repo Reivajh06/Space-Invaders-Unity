@@ -13,16 +13,19 @@ public class Alien : MonoBehaviour {
     public AudioClip alienHit;
     public int Row { get; set; }
     public int Column { get; set; }
+    public Color color;
 
     private void Start() {
         animator = GetComponent<Animator>();
     }
 
     public void Fire() {
-        beamSpeed = Random.Range(-4, -1);
+        beamSpeed = Random.Range(-6, -1);
         Beam beam = Instantiate(beamPrefab, transform.position - transform.up * 1.2f, transform.rotation).GetComponent<Beam>();
         beam.shooterName = nameof(Alien);
         beam.speed = beamSpeed;
+        
+        if(color != null) beam.GetComponent<SpriteRenderer>().color = color;
     }
 
     public void OnHit() {

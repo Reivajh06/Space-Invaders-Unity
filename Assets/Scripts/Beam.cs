@@ -18,7 +18,7 @@ public class Beam : MonoBehaviour {
                 if (shooterName.Equals("Alien")) return;
                 Alien a = other.GetComponent<Alien>();
                 a.OnHit();
-                a.GetComponentInParent<AlienSpawner>().aliens.Remove(a);
+                a.GetComponentInParent<AlienSpawner>().Remove(a);
                 
             } if (other.name.Equals("Player")) {
                 if (shooterName.Equals("Player")) return;
