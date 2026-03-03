@@ -152,6 +152,17 @@ Transform:
   - {fileID: 1626538385}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &236675486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2215169501449043013, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+  m_PrefabInstance: {fileID: 1214333262}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0739b3a673f4d4b9411cfd3292e63b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
 --- !u!1 &290487203 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2445116210756292286, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
@@ -170,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
   beamPrefab: {fileID: 0}
+  audioManager: {fileID: 0}
+  alienHit: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,9 +287,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 43
+  field of view: 23.8
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 13.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -302,7 +315,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 3, y: 3.09, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -336,10 +349,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd26097ed1468442964b24719080195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlienSpawner
+  audioManager: {fileID: 236675486}
   alienRows: 5
   aliensInRow: 21
   aliens: []
-  moveCooldown: 5
+  moveCooldown: 3
   direction: 1
   startX: -16
   startY: 5
@@ -351,9 +365,11 @@ MonoBehaviour:
   - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   - {r: 0.8792453, g: 0.07133492, b: 0.86159235, a: 1}
   alienPrefabs:
-  - {fileID: 7037517690778539271, guid: 14c8fe05625482b4080d1b876db5712a, type: 3}
-  - {fileID: 8867655885892674239, guid: 7e547a46056000d44b0d551b0f716377, type: 3}
   - {fileID: 7081743820197570384, guid: 22751231c727af540b69c9aaa583adeb, type: 3}
+  - {fileID: 7081743820197570384, guid: 22751231c727af540b69c9aaa583adeb, type: 3}
+  - {fileID: 8867655885892674239, guid: 7e547a46056000d44b0d551b0f716377, type: 3}
+  - {fileID: 8867655885892674239, guid: 7e547a46056000d44b0d551b0f716377, type: 3}
+  - {fileID: 7037517690778539271, guid: 14c8fe05625482b4080d1b876db5712a, type: 3}
 --- !u!4 &604119574
 Transform:
   m_ObjectHideFlags: 0
@@ -387,6 +403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
   beamPrefab: {fileID: 0}
+  audioManager: {fileID: 0}
+  alienHit: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +489,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1214333262
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1883994673449390097, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.39194
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848877278415875531, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
 --- !u!1 &1626538384
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +734,10 @@ PrefabInstance:
       value: Beam
       objectReference: {fileID: 0}
     - target: {fileID: 2652021100173015924, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 236675486}
+    - target: {fileID: 2652021100173015924, guid: ce53ad63d090da5479df42f78c253b96, type: 3}
       propertyPath: fireBeamTimer
       value: 5
       objectReference: {fileID: 0}
@@ -688,3 +767,4 @@ SceneRoots:
   - {fileID: 2740822908725215548}
   - {fileID: 4262487751619456845}
   - {fileID: 107009570}
+  - {fileID: 1214333262}

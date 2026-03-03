@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienSpawner : MonoBehaviour {
-    
+
+    public AudioManager audioManager;
     public int alienRows = 5;
     public int aliensInRow;
     public List<Alien> aliens;
 
-    public float moveCooldown = 5f;
+    public float moveCooldown = 2f;
     public int direction = 1;
     public float startX = -15f;
     public float startY = 3f;
     private float paddingX = 0.2f;
-    private float paddingY = 0.4f;
+    private float paddingY = 1f;
 
     public int remainingAliens;
     public Color[] rowColors;
@@ -31,7 +32,7 @@ public class AlienSpawner : MonoBehaviour {
         if (moveCooldown <= 0)
         {
             MoveAliens();
-            moveCooldown = 5f;
+            moveCooldown = 3f;
         }
 
         moveCooldown -= 1 * Time.deltaTime;
@@ -55,6 +56,7 @@ public class AlienSpawner : MonoBehaviour {
                 alien.name = "Alien" + "(" + i + ", " + j + ")";
                 alien.Row = i;
                 alien.Column = j;
+                alien.audioManager = audioManager;
 
                 if (rowColors.Length != 0) alien.GetComponent<SpriteRenderer>().color = rowColors[i % rowColors.Length];
 
@@ -76,13 +78,13 @@ public class AlienSpawner : MonoBehaviour {
     public void MoveAliens(bool horizontally=true) {
         foreach(Alien a in aliens) {
             if (horizontally) {
-                a.transform.Translate(new Vector3(alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.x * direction, 0));
+                a.transform.Translate(new Vector3(2 * direction, 0));
                 Alien.enableBordersCollision = true;
 
             } else {
 
                 direction *= -1;
-                MoveAliens(); //Undo the last movement if any alien collides with bounds (this parte is only called vertically when some alien collides with bounds)
+                MoveAliens(); //Undo the last movement if any alien collides with bounds (this part is only called vertically when some alien collides with bounds)
                 a.transform.Translate(new Vector3(0, alienPrefabs[0].GetComponent<SpriteRenderer>().bounds.size.y * -1));
                 Alien.enableBordersCollision = false;
             }

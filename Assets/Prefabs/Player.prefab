@@ -48,8 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f32b102079be044b25bc3b9fd8eceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  audioManager: {fileID: 2215169501449043013, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
   beamPrefab: {fileID: 6842230650841849228, guid: c9383ae30cdff1e4d90ee8094a82c02b, type: 3}
-  speed: 5
+  playerHit: {fileID: 8300000, guid: 9a4c20492fca57e40905a1ae43687a86, type: 3}
+  beamShot: {fileID: 8300000, guid: 2a8368a6d7d9e42459f100e4de9e0482, type: 3}
+  speed: 8
 --- !u!50 &2439615645623838214
 Rigidbody2D:
   serializedVersion: 5

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour {
     
-    public float speed = 5f;
+    public float speed = 8f;
     public string shooterName;
 
     void Update() {
@@ -21,6 +21,8 @@ public class Beam : MonoBehaviour {
                 a.GetComponentInParent<AlienSpawner>().aliens.Remove(a);
                 
             } if (other.name.Equals("Player")) {
+                if (shooterName.Equals("Player")) return;
+                
                 Player p = other.GetComponent<Player>();
                 p.OnHit();
             } 

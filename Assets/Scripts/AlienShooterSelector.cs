@@ -17,14 +17,14 @@ public class AlienShooterSelector : MonoBehaviour {
     void Update() {
         if (shotCooldown <= 0) {
             shotCooldown = Random.Range(6, 14);
-            Fill();
+            SelectShooters();
             Fire();
         }
 
         shotCooldown -= 1 * Time.deltaTime;
     }
 
-    private void Fill() {
+    private void SelectShooters() {
         int lowerRow = alienSpawner.alienRows - 1;
         int shooterAliensLength = Random.Range(1, maxShooters + 1 > alienSpawner.remainingAliens ? alienSpawner.remainingAliens : maxShooters + 1);
         

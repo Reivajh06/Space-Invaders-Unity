@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +8,9 @@ public class Alien : MonoBehaviour {
     public GameObject beamPrefab;
     private Animator animator;
     private int beamSpeed;
+
+    public AudioManager audioManager;
+    public AudioClip alienHit;
     public int Row { get; set; }
     public int Column { get; set; }
 
@@ -24,6 +26,8 @@ public class Alien : MonoBehaviour {
     }
 
     public void OnHit() {
+        if(audioManager) audioManager.PlaySFX(alienHit);
+        
         animator.Play("alien_hit");
     }
 
