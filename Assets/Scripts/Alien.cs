@@ -4,7 +4,8 @@ using Random = UnityEngine.Random;
 public class Alien : MonoBehaviour {
 
     public static bool enableBordersCollision = true;
-
+    public int score;
+    
     public GameObject beamPrefab;
     private Animator animator;
     private int beamSpeed;

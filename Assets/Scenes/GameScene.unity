@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc038eb8dd07534295b30626c7b0584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
+  score: 0
   beamPrefab: {fileID: 0}
   audioManager: {fileID: 0}
   alienHit: {fileID: 0}
@@ -350,10 +351,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd26097ed1468442964b24719080195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlienSpawner
+  borders: {fileID: 611839931}
   audioManager: {fileID: 236675486}
   alienRows: 5
   aliensInRow: 21
   aliens: []
+  spaceShipCooldown: 10
   moveCooldown: 3
   direction: 1
   startX: -16
@@ -371,6 +374,7 @@ MonoBehaviour:
   - {fileID: 8867655885892674239, guid: 7e547a46056000d44b0d551b0f716377, type: 3}
   - {fileID: 8867655885892674239, guid: 7e547a46056000d44b0d551b0f716377, type: 3}
   - {fileID: 7037517690778539271, guid: 14c8fe05625482b4080d1b876db5712a, type: 3}
+  spaceShipPrefab: {fileID: 1919873130212903162, guid: 7da8d246dc301da48b6df6259c65425b, type: 3}
 --- !u!4 &604119574
 Transform:
   m_ObjectHideFlags: 0
@@ -403,10 +407,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc038eb8dd07534295b30626c7b0584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
+  score: 0
   beamPrefab: {fileID: 0}
   audioManager: {fileID: 0}
   alienHit: {fileID: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!68 &611839934
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611839931}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -27.972792, y: 15.154354}
+  - {x: -28.126595, y: -13.0119705}
+  - {x: 15.797266, y: -12.914404}
+  - {x: 26.320587, y: -12.6955185}
+  - {x: 26.622616, y: 15.118211}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +718,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6368810325775457458, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       insertIndex: -1
       addedObject: {fileID: 611839932}
+    - targetCorrespondingSourceObject: {fileID: 6368810325775457458, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 611839934}
     - targetCorrespondingSourceObject: {fileID: 2445116210756292286, guid: 0cf4fe0512b3a044f9b145dad8f1ad91, type: 3}
       insertIndex: -1
       addedObject: {fileID: 290487205}

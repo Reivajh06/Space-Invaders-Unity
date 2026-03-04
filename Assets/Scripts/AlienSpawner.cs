@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class AlienSpawner : MonoBehaviour {
+public class AlienSpawner : MonoBehaviour
+{
 
+    public GameObject borders;
     public AudioManager audioManager;
     public int alienRows = 5;
     public int aliensInRow;
     public Alien[] aliens;
 
+    public float spaceShipCooldown = 10f;
     public float moveCooldown = 2f;
     public int direction = 1;
     public float startX = -15f;
@@ -21,6 +25,7 @@ public class AlienSpawner : MonoBehaviour {
 
 
     public GameObject[] alienPrefabs;
+    public GameObject spaceShipPrefab;
     
     void Start() {
         aliens = new Alien[aliensInRow * alienRows];
@@ -37,6 +42,17 @@ public class AlienSpawner : MonoBehaviour {
         }
 
         moveCooldown -= 1 * Time.deltaTime;
+
+        if (GetComponentInChildren<AlienSpaceShip>() == null) {
+            spaceShipCooldown =  Random.Range(9, 16);
+        }
+        
+        if (spaceShipCooldown <= 0) {
+            SpawnSpaceShip();
+        }
+        
+        audioManager = GetComponent<AudioManager>();
+        spaceShipCooldown -= 1 * Time.deltaTime;
     }
 
     private void InstantiateAlienRows() {
@@ -94,5 +110,25 @@ public class AlienSpawner : MonoBehaviour {
                 Alien.enableBordersCollision = false;
             }
         }
+    }
+
+    private void SpawnSpaceShip() {
+        spaceShipCooldown = Random.Range(9, 16);
+
+        Collider2D boundsCollider = borders.GetComponent<Collider2D>();
+        Bounds b = boundsCollider.bounds;
+
+        // Get ship size for clean edge placement
+        SpriteRenderer shipSr = spaceShipPrefab.GetComponent<SpriteRenderer>();
+        float halfW = shipSr ? shipSr.bounds.extents.x : 0f;
+        float halfH = shipSr ? shipSr.bounds.extents.y : 0f;
+
+        // If moving left, spawn on the RIGHT side. If moving right, spawn on the LEFT side.
+        float spawnX = (AlienSpaceShip.direction < 0) ? (b.max.x + halfW) -3 : (b.min.x - halfW) + 3;
+
+        // Put it visually on the top edge (inside). If you want above the border, use b.max.y + halfH instead.
+        float spawnY = b.max.y - halfH - 2;
+
+        GameObject go = Instantiate(spaceShipPrefab, new Vector3(spawnX, spawnY, 0f), Quaternion.identity, transform);
     }
 }

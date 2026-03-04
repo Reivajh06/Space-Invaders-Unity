@@ -136,6 +136,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7312119120430701768, guid: e711407d6e5876f4a9cda2abf7cdc985, type: 3}
+      propertyPath: score
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 9134887926442787728, guid: e711407d6e5876f4a9cda2abf7cdc985, type: 3}
       propertyPath: m_Name
       value: Alien2
