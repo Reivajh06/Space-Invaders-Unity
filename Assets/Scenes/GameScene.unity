@@ -183,6 +183,7 @@ MonoBehaviour:
   beamPrefab: {fileID: 0}
   audioManager: {fileID: 0}
   alienHit: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +357,7 @@ MonoBehaviour:
   moveCooldown: 3
   direction: 1
   startX: -16
-  startY: 5
+  startY: 1
   remainingAliens: 0
   rowColors:
   - {r: 0.8784314, g: 1, b: 1, a: 1}
@@ -405,6 +406,7 @@ MonoBehaviour:
   beamPrefab: {fileID: 0}
   audioManager: {fileID: 0}
   alienHit: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
