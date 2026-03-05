@@ -10,7 +10,8 @@ public class Player : MonoBehaviour {
     public GameObject beamPrefab;
     public AudioClip playerHit;
     public AudioClip beamShot;
-    
+
+    public int lives = 3;
     public float speed = 5f;
 
     private float fireBeamTimer;
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour {
                 if(audioManager) audioManager.PlaySFX(beamShot); 
                     
                 fireBeamTimer = FIRECOOLDOWN;
-                Beam b = Instantiate(beamPrefab, transform.position + transform.up * 1.4f + transform.right / 2 + new Vector3(-0.25f, 0, 0), transform.rotation).GetComponent<Beam>();
+                Beam b = Instantiate(beamPrefab, transform.position + transform.up * 1.5f + transform.right / 2 + new Vector3(-0.25f, 0, 0), transform.rotation).GetComponent<Beam>();
                 b.shooterName = nameof(Player);
             }
         }
@@ -39,7 +40,6 @@ public class Player : MonoBehaviour {
 
     public void OnHit() {
         if(audioManager) audioManager.PlaySFX(playerHit);
-        
         animator.Play("player_hit");
     }
 }

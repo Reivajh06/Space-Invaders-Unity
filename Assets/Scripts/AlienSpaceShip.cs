@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AlienSpaceShip : MonoBehaviour {
     
@@ -15,25 +15,25 @@ public class AlienSpaceShip : MonoBehaviour {
     void Start() {
         animator = GetComponent<Animator>();
     }
+    
     void Update() {
+            
         transform.Translate(
             direction < 0 ? Vector3.left * speed * Time.deltaTime : Vector3.right * speed * Time.deltaTime
             );
     }
 
     void OnCollisionExit2D(Collision2D collision) {
-        if (!collision.gameObject.name.Equals("Bounds")) {
-            if (collision.gameObject.name.Equals("Player")) {
-                Player p =  collision.gameObject.GetComponent<Player>();
-                // p.score += score;
-            } else {
-               if(audioManager) audioManager.PlaySFX(spaceShipHit);
+        if (collision.gameObject.name.Equals("Bounds")) {
+            direction *= -1;
+            GetComponentInParent<AlienSpawner>().spaceShipCooldown = Random.Range(9, 16);
+            Destroy(gameObject);
+        }
+    }
 
-               animator.Play("spaceShip_hit");
-            }
-        };
+    public void OnHit() {
+        if(audioManager) audioManager.PlaySFX(spaceShipHit);
 
-        direction *= -1;
-        Destroy(gameObject);
+        animator.Play("spaceShip_hit");
     }
 }

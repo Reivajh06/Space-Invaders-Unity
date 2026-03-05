@@ -44,15 +44,18 @@ public class AlienSpawner : MonoBehaviour
         moveCooldown -= 1 * Time.deltaTime;
 
         if (GetComponentInChildren<AlienSpaceShip>() == null) {
-            spaceShipCooldown =  Random.Range(9, 16);
+            if (spaceShipCooldown <= 0)
+            {
+                SpawnSpaceShip();
+                spaceShipCooldown = Random.Range(9, 16);
+                
+            } else {
+                spaceShipCooldown -= 1 * Time.deltaTime;
+            }
         }
-        
-        if (spaceShipCooldown <= 0) {
-            SpawnSpaceShip();
-        }
+
         
         audioManager = GetComponent<AudioManager>();
-        spaceShipCooldown -= 1 * Time.deltaTime;
     }
 
     private void InstantiateAlienRows() {
@@ -63,25 +66,7 @@ public class AlienSpawner : MonoBehaviour
             float yOffset = sr.bounds.size.y + paddingY;
             
             for(int j = 0; j < aliensInRow; j++) {
-                Alien alien = Instantiate(
-                    alienPrefab,
-                    new Vector3(startX + xOffset * j, startY + yOffset * i),
-                    Quaternion.identity,
-                    transform
-                ).GetComponent<Alien>();
-
-                alien.name = "Alien" + "(" + i + ", " + j + ")";
-                alien.Row = i;
-                alien.Column = j;
-                alien.audioManager = audioManager;
-
-                if (rowColors.Length != 0)
-                {
-                    alien.color = rowColors[i % rowColors.Length];
-                    alien.GetComponent<SpriteRenderer>().color = rowColors[i % rowColors.Length];
-                }
-
-                aliens[aliensInRow * i + j] = alien;
+                SpawnAlien(alienPrefab, i, j, xOffset, yOffset);
             }
         }
     }
@@ -112,6 +97,28 @@ public class AlienSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnAlien(GameObject alienPrefab, int row, int col, float xOffset, float yOffset) {
+        Alien alien = Instantiate(
+            alienPrefab,
+            new Vector3(startX + xOffset * col, startY + yOffset * row),
+            Quaternion.identity,
+            transform
+        ).GetComponent<Alien>();
+
+        alien.name = "Alien" + "(" + row + ", " + col + ")";
+        alien.Row = row;
+        alien.Column = col;
+        alien.audioManager = audioManager;
+
+        if (rowColors.Length != 0)
+        {
+            alien.color = rowColors[row % rowColors.Length];
+            alien.GetComponent<SpriteRenderer>().color = rowColors[row % rowColors.Length];
+        }
+
+        aliens[aliensInRow * row + col] = alien;
+    }
+
     private void SpawnSpaceShip() {
         spaceShipCooldown = Random.Range(9, 16);
 
@@ -124,7 +131,7 @@ public class AlienSpawner : MonoBehaviour
         float halfH = shipSr ? shipSr.bounds.extents.y : 0f;
 
         // If moving left, spawn on the RIGHT side. If moving right, spawn on the LEFT side.
-        float spawnX = (AlienSpaceShip.direction < 0) ? (b.max.x + halfW) -3 : (b.min.x - halfW) + 3;
+        float spawnX = (AlienSpaceShip.direction < 0) ? (b.max.x + halfW) -4 : (b.min.x - halfW) + 4;
 
         // Put it visually on the top edge (inside). If you want above the border, use b.max.y + halfH instead.
         float spawnY = b.max.y - halfH - 2;

@@ -9,7 +9,7 @@ public class Alien : MonoBehaviour {
     public GameObject beamPrefab;
     private Animator animator;
     private int beamSpeed;
-
+    
     public AudioManager audioManager;
     public AudioClip alienHit;
     public int Row { get; set; }

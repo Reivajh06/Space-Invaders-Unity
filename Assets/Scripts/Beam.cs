@@ -13,19 +13,26 @@ public class Beam : MonoBehaviour {
         GameObject other = collision.gameObject;
 
         if(!other.name.Equals("Bounds")) {
-            if (other.name.Contains("Alien"))
-            {
+            if (other.name.Contains("Alien")) {
                 if (shooterName.Equals("Alien")) return;
-                Alien a = other.GetComponent<Alien>();
-                a.OnHit();
-                a.GetComponentInParent<AlienSpawner>().Remove(a);
                 
-            } if (other.name.Equals("Player")) {
+                if (other.name.Contains("AlienSpaceShip")) {
+                    AlienSpaceShip alienSpaceShip = other.GetComponent<AlienSpaceShip>();
+                    alienSpaceShip.OnHit();
+
+                } else {
+                    Alien a = other.GetComponent<Alien>();
+                    a.OnHit();
+                    a.GetComponentInParent<AlienSpawner>().Remove(a);
+                }
+                
+            } else if (other.name.Equals("Player")) {
                 if (shooterName.Equals("Player")) return;
                 
                 Player p = other.GetComponent<Player>();
                 p.OnHit();
-            } 
+                
+            }
         }
         
         Destroy(gameObject);
