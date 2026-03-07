@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,7 +16,7 @@ public class AlienShooterSelector : MonoBehaviour {
 
     void Update() {
         if (shotCooldown <= 0) {
-            shotCooldown = Random.Range(6, 14);
+            shotCooldown = Random.Range(6, 10);
             SelectShooters();
             Fire();
         }
@@ -27,7 +25,6 @@ public class AlienShooterSelector : MonoBehaviour {
     }
 
     private void SelectShooters() {
-        int lowerRow = alienSpawner.alienRows - 1;
         int shooterAliensLength = Random.Range(1, maxShooters + 1 > alienSpawner.remainingAliens ? alienSpawner.remainingAliens : maxShooters + 1);
 
         for (int column = 0; column < shooterAliensLength; column++) {

@@ -10,7 +10,6 @@ public class Alien : MonoBehaviour {
     private Animator animator;
     private int beamSpeed;
     
-    public AudioManager audioManager;
     public AudioClip alienHit;
     public int Row { get; set; }
     public int Column { get; set; }
@@ -23,16 +22,22 @@ public class Alien : MonoBehaviour {
     public void Fire() {
         beamSpeed = Random.Range(-6, -1);
         Beam beam = Instantiate(beamPrefab, transform.position - transform.up * 1.2f, transform.rotation).GetComponent<Beam>();
-        beam.shooterName = nameof(Alien);
+        beam.shooter = gameObject;
         beam.speed = beamSpeed;
         
         if(color != null) beam.GetComponent<SpriteRenderer>().color = color;
     }
 
     public void OnHit() {
-        if(audioManager) audioManager.PlaySFX(alienHit);
+        AudioManager.Instance.PlaySFX(alienHit);
+
+        GetComponentInParent<AlienSpawner>().remainingAliens--;
         
         animator.Play("alien_hit");
+    }
+
+    public void SetAnimationSpeed(float speed) {
+        animator.speed = speed;
     }
 
     private void OnCollisionEnter2D(Collision2D other) {

@@ -1,47 +1,49 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AlienSpawner : MonoBehaviour
-{
+public class AlienSpawner : MonoBehaviour {
 
-    public GameObject borders;
+    [Header("GameObjects References")] 
     public AudioManager audioManager;
+    public GameObject borders;
+    public Alien[] aliens;
+    public GameObject winUI;
+
+    [Header("Alien Spawning Configuration")]
     public int alienRows = 5;
     public int aliensInRow;
-    public Alien[] aliens;
-
     public float spaceShipCooldown = 10f;
     public float moveCooldown = 2f;
     public int direction = 1;
     public float startX = -15f;
     public float startY = 3f;
-    private float paddingX = 0.2f;
-    private float paddingY = 1f;
-
+    private float _paddingX = 0.2f;
+    private float _paddingY = 1f;
+    private float _timeMultiplier = 1;
+    
     public int remainingAliens;
     public Color[] rowColors;
-
-
     public GameObject[] alienPrefabs;
     public GameObject spaceShipPrefab;
     
     void Start() {
-        aliens = new Alien[aliensInRow * alienRows];
-        InstantiateAlienRows();
-
-        remainingAliens = alienRows * aliensInRow;
+        SetUp();
     }
 
     void Update() {
-        if (moveCooldown <= 0)
-        {
+        if (remainingAliens == 0) {
+            winUI.SetActive(true);
+        }
+        
+        UpdateAlienSpeedup();
+        
+        if (moveCooldown <= 0) {
             MoveAliens();
             moveCooldown = 3f;
         }
 
-        moveCooldown -= 1 * Time.deltaTime;
+        moveCooldown -= _timeMultiplier * Time.deltaTime;
 
         if (GetComponentInChildren<AlienSpaceShip>() == null) {
             if (spaceShipCooldown <= 0)
@@ -53,17 +55,21 @@ public class AlienSpawner : MonoBehaviour
                 spaceShipCooldown -= 1 * Time.deltaTime;
             }
         }
+    }
 
-        
-        audioManager = GetComponent<AudioManager>();
+    public void SetUp() {
+        aliens = new Alien[aliensInRow * alienRows];
+        InstantiateAlienRows();
+
+        remainingAliens = alienRows * aliensInRow;
     }
 
     private void InstantiateAlienRows() {
         for(int i = 0; i < alienRows; i++) {
             GameObject alienPrefab = alienPrefabs[Math.Min(i, alienPrefabs.Length - 1)];
             SpriteRenderer sr = alienPrefab.GetComponent<SpriteRenderer>();
-            float xOffset = sr.bounds.size.x + paddingX;
-            float yOffset = sr.bounds.size.y + paddingY;
+            float xOffset = sr.bounds.size.x + _paddingX;
+            float yOffset = sr.bounds.size.y + _paddingY;
             
             for(int j = 0; j < aliensInRow; j++) {
                 SpawnAlien(alienPrefab, i, j, xOffset, yOffset);
@@ -108,7 +114,6 @@ public class AlienSpawner : MonoBehaviour
         alien.name = "Alien" + "(" + row + ", " + col + ")";
         alien.Row = row;
         alien.Column = col;
-        alien.audioManager = audioManager;
 
         if (rowColors.Length != 0)
         {
@@ -120,7 +125,7 @@ public class AlienSpawner : MonoBehaviour
     }
 
     private void SpawnSpaceShip() {
-        spaceShipCooldown = Random.Range(9, 16);
+        spaceShipCooldown = Random.Range(20, 30);
 
         Collider2D boundsCollider = borders.GetComponent<Collider2D>();
         Bounds b = boundsCollider.bounds;
@@ -136,6 +141,37 @@ public class AlienSpawner : MonoBehaviour
         // Put it visually on the top edge (inside). If you want above the border, use b.max.y + halfH instead.
         float spawnY = b.max.y - halfH - 2;
 
-        GameObject go = Instantiate(spaceShipPrefab, new Vector3(spawnX, spawnY, 0f), Quaternion.identity, transform);
+        AlienSpaceShip spaceShip = Instantiate(spaceShipPrefab, new Vector3(spawnX, spawnY, 0f), Quaternion.identity, transform).GetComponent<AlienSpaceShip>();
+    }
+
+    private void UpdateAlienSpeedup() {
+        /*
+         * -> [100%, 70%] timeMultiplier = 1
+         * -> [70%, 50%] timeMultiplier = 2
+         * -> [50% -> 30%] timeMultiplier = 3
+         * -> [30%, 0%] timeMultiplier = 4
+         */
+        int totalAliens = alienRows * aliensInRow;
+        int remainingPercentage = remainingAliens * 100 / totalAliens;
+        
+        if (remainingPercentage > 70) return;
+
+        if(remainingPercentage > 50) {
+            _timeMultiplier = 1.5f;
+            
+        } else if(remainingPercentage > 30) {
+            _timeMultiplier = 2f;
+            
+        } else {
+            _timeMultiplier = 2.5f;
+        }
+
+        foreach(Alien a in aliens) {
+            if (a == null) continue;
+            
+            a.SetAnimationSpeed(_timeMultiplier);
+        }
+
+        audioManager.SetMusicPitch(_timeMultiplier - 0.5f);
     }
 }

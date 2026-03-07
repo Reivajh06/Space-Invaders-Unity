@@ -1,18 +1,28 @@
+using System.Text;
+using TMPro;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour {
     
     public const float FIRECOOLDOWN = 0.8f;
+    
+    public Animator animator;
 
-    private Animator animator;
-    public AudioManager audioManager;
+    public GameObject gameOverUI;
+    public TextMeshProUGUI tmp;
     public GameObject beamPrefab;
     public AudioClip playerHit;
     public AudioClip beamShot;
+    
+    public GameObject turretSprite1;
+    public GameObject turretSprite2;
+
+    public bool isAnimatingHit = false;
 
     public int lives = 3;
     public float speed = 5f;
+    public int score = 0;
 
     private float fireBeamTimer;
 
@@ -27,11 +37,15 @@ public class Player : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Return)) {
             if (fireBeamTimer <= 0) {
-                if(audioManager) audioManager.PlaySFX(beamShot); 
+                AudioManager.Instance.PlaySFX(beamShot); 
                     
                 fireBeamTimer = FIRECOOLDOWN;
-                Beam b = Instantiate(beamPrefab, transform.position + transform.up * 1.5f + transform.right / 2 + new Vector3(-0.25f, 0, 0), transform.rotation).GetComponent<Beam>();
-                b.shooterName = nameof(Player);
+                Beam b = Instantiate(
+                    beamPrefab,
+                    transform.position + transform.up * 1.5f + transform.right / 2 + new Vector3(-0.25f, 0, 0),
+                    Quaternion.identity
+                    ).GetComponent<Beam>();
+                b.shooter = gameObject;
             }
         }
 
@@ -39,7 +53,22 @@ public class Player : MonoBehaviour {
     }
 
     public void OnHit() {
-        if(audioManager) audioManager.PlaySFX(playerHit);
+        AudioManager.Instance.PlaySFX(playerHit);
+        isAnimatingHit = true;
         animator.Play("player_hit");
+        AudioManager.Instance.SetMusicPitch(0);
+        Time.timeScale = 0;
+    }
+
+    public void RemoveSprite() {
+        if(lives == 2) Destroy(turretSprite2);
+        
+        else if(lives == 1) Destroy(turretSprite1);
+    }
+
+    public void UpdateScore(int points) {
+        score += points;
+
+        tmp.SetText(new StringBuilder().Append(score).ToString());
     }
 }

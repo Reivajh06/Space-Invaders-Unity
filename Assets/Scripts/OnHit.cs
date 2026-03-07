@@ -11,15 +11,26 @@ public class OnHit : StateMachineBehaviour {
             
         } else if (animator.GetComponentInParent<Player>()) {
             Player p = animator.GetComponent<Player>();
-
+            
             if (p.lives - 1 == 0) {
-                //Set Canvas to lose match??
+                p.gameOverUI.SetActive(true);
+                AudioManager.Instance.SetGameOverMusic();
                 Destroy(animator.GetComponentInParent<Player>().gameObject);
                 
+
             } else {
                 p.lives--;
+                p.RemoveSprite();
             }
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        Time.timeScale = 1;
+        AudioManager.Instance.SetMusicPitch(1);
         
+        if (animator.GetComponent<Player>()) {
+            animator.GetComponent<Player>().isAnimatingHit = false;
+        }
     }
 }

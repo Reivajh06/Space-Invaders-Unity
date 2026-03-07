@@ -1,9 +1,10 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Beam : MonoBehaviour {
     
     public float speed = 8f;
-    public string shooterName;
+    public GameObject shooter;
 
     void Update() {
         transform.Translate(0, speed * Time.deltaTime, 0);
@@ -14,27 +15,32 @@ public class Beam : MonoBehaviour {
 
         if(!other.name.Equals("Bounds")) {
             if (other.name.Contains("Alien")) {
-                if (shooterName.Equals("Alien")) return;
+                if (shooter.name.Contains("Alien")) return;
                 
                 if (other.name.Contains("AlienSpaceShip")) {
                     AlienSpaceShip alienSpaceShip = other.GetComponent<AlienSpaceShip>();
                     alienSpaceShip.OnHit();
+                    shooter.GetComponent<Player>().UpdateScore(alienSpaceShip.score);
+                    Destroy(gameObject);
 
                 } else {
                     Alien a = other.GetComponent<Alien>();
                     a.OnHit();
                     a.GetComponentInParent<AlienSpawner>().Remove(a);
+                    shooter.GetComponent<Player>().UpdateScore(a.score);
+                    Destroy(gameObject);
                 }
                 
             } else if (other.name.Equals("Player")) {
-                if (shooterName.Equals("Player")) return;
+                if (shooter.name.Equals("Player")) return;
                 
                 Player p = other.GetComponent<Player>();
-                p.OnHit();
+
+                if (p.isAnimatingHit) return;
                 
+                p.OnHit();
+                Destroy(gameObject);
             }
         }
-        
-        Destroy(gameObject);
     }
 }

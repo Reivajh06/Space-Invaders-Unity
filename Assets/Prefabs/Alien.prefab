@@ -120,9 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc038eb8dd07534295b30626c7b0584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Alien
+  score: 0
   beamPrefab: {fileID: 6842230650841849228, guid: c9383ae30cdff1e4d90ee8094a82c02b, type: 3}
   audioManager: {fileID: 2215169501449043013, guid: cee71219fa2eaec4398082bb65d79915, type: 3}
   alienHit: {fileID: 8300000, guid: 8faab1366f63cd44ead3941f66ae75ac, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &7288412289047526182
 SpriteRenderer:
   serializedVersion: 2

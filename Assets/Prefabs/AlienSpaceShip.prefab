@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlienSpaceShip
   audioManager: {fileID: 0}
-  spaceShipHit: {fileID: 0}
+  spaceShipHit: {fileID: 8300000, guid: 8faab1366f63cd44ead3941f66ae75ac, type: 3}
+  spaceShipAppears: {fileID: 8300000, guid: b33923d51b3df8c478c93af65436bf91, type: 3}
   score: 100
 --- !u!50 &7060935989494627945
 Rigidbody2D:

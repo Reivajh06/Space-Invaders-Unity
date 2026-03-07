@@ -7,17 +7,18 @@ public class AlienSpaceShip : MonoBehaviour {
     
     public AudioManager audioManager;
     public AudioClip spaceShipHit;
-
+    public AudioClip spaceShipAppears;
+    
     private Animator animator;
-    private float speed = 4f;
+    private float speed = 10f;
     public int score = 100;
 
     void Start() {
         animator = GetComponent<Animator>();
+        AudioManager.Instance.PlaySFX(spaceShipAppears);
     }
     
     void Update() {
-            
         transform.Translate(
             direction < 0 ? Vector3.left * speed * Time.deltaTime : Vector3.right * speed * Time.deltaTime
             );
